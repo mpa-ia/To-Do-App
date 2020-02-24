@@ -5,6 +5,12 @@ class App extends React.Component {
     tasks: [],
   };
 
+  removeTask (taskIndex) {
+    this.setState(state => {
+      return state.tasks.splice(taskIndex, 1);
+    });
+  };
+
   render() {
     const { tasks } = this.state;
     return (
@@ -20,7 +26,7 @@ class App extends React.Component {
           <ul className="tasks-section__list" id="tasks-list">
             {tasks.map(task => (
               <li className="task">{task} 
-                <button className="btn btn--red">Remove</button>
+                <button className="btn btn--red" onClick={() => this.removeTask(tasks.indexOf(task))}>Remove</button>
               </li>
             ))}
           </ul>
