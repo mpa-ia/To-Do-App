@@ -4,7 +4,7 @@ class App extends React.Component {
   state = {
     tasks: [],
   };
-  
+
   render() {
     const { tasks } = this.state;
     return (
@@ -19,7 +19,9 @@ class App extends React.Component {
     
           <ul className="tasks-section__list" id="tasks-list">
             {tasks.map(task => (
-              <li class="task">{task} <button class="btn btn--red">Remove</button></li>
+              <li className="task">{task} 
+                <button className="btn btn--red">Remove</button>
+              </li>
             ))}
           </ul>
     
