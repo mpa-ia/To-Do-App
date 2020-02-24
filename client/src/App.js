@@ -26,7 +26,7 @@ class App extends React.Component {
           </ul>
     
           <form id="add-task-form">
-            <input className="text-input" autocomplete="off" type="text" placeholder="Type your description" id="task-name" />
+            <input className="text-input" autoComplete="off" type="text" placeholder="Type your description" id="task-name" />
             <button className="btn" type="submit">Add</button>
           </form>
     
