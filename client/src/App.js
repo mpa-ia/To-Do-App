@@ -1,8 +1,12 @@
 import React from 'react';
 
 class App extends React.Component {
-
+  state = {
+    tasks: [],
+  };
+  
   render() {
+    const { tasks } = this.state;
     return (
       <div className="App">
     
@@ -14,8 +18,9 @@ class App extends React.Component {
           <h2>Tasks</h2>
     
           <ul className="tasks-section__list" id="tasks-list">
-            <li class="task">Shopping <button class="btn btn--red">Remove</button></li>
-            <li class="task">Go out with a dog <button class="btn btn--red">Remove</button></li>
+            {tasks.map(task => (
+              <li class="task">{task} <button class="btn btn--red">Remove</button></li>
+            ))}
           </ul>
     
           <form id="add-task-form">
