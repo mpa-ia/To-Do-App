@@ -4,6 +4,7 @@ import io from 'socket.io-client';
 class App extends React.Component {
   state = {
     tasks: [],
+    taskName: '',
   };
 
   componentDidMount() {
@@ -16,9 +17,15 @@ class App extends React.Component {
     });
     this.socket.emit('removeTask', taskIndex);
   };
+  
+  updateTaskName (newValue) {
+    this.setState({
+      taskName: newValue,
+    });
+  }
 
   render() {
-    const { tasks } = this.state;
+    const { tasks, taskName } = this.state;
     return (
       <div className="App">
     
@@ -38,7 +45,7 @@ class App extends React.Component {
           </ul>
     
           <form id="add-task-form">
-            <input className="text-input" autoComplete="off" type="text" placeholder="Type your description" id="task-name" />
+            <input className="text-input" autoComplete="off" type="text" placeholder="Type your description" id="task-name" value={taskName} onChange={(e) => this.updateTaskName(e.target.value)} />
             <button className="btn" type="submit">Add</button>
           </form>
     
