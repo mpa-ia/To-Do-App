@@ -14,6 +14,7 @@ class App extends React.Component {
     this.setState(state => {
       return state.tasks.splice(taskIndex, 1);
     });
+    this.socket.emit('removeTask', taskIndex);
   };
 
   render() {
