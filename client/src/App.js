@@ -9,6 +9,11 @@ class App extends React.Component {
 
   componentDidMount() {
     this.socket = io.connect('http://localhost:8000');
+    this.socket.on('updateData', (tasksList) => {this.updateTasksList(tasksList)});
+  };
+  
+  updateTasksList (tasksList) {
+    this.setState({ tasks: tasksList});
   };
 
   removeTask (taskIndex) {
