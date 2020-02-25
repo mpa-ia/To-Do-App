@@ -21,7 +21,6 @@ io.on('connection', (socket) => {
     });
     socket.on('removeTask', (taskIndex) => {
         tasks.splice(taskIndex, 1);
-        console.log(tasks);
     });
 });
 

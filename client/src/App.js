@@ -24,6 +24,17 @@ class App extends React.Component {
     });
   }
 
+  addTask (taskName) {
+    this.setState({tasks: [...this.state.tasks, taskName]});
+  };
+
+  submitForm (e) {
+    const { taskName } = this.state;
+    e.preventDefault();
+    this.addTask(taskName);
+    this.socket.emit('addTask', taskName);
+  };
+
   render() {
     const { tasks, taskName } = this.state;
     return (
@@ -46,7 +57,7 @@ class App extends React.Component {
     
           <form id="add-task-form">
             <input className="text-input" autoComplete="off" type="text" placeholder="Type your description" id="task-name" value={taskName} onChange={(e) => this.updateTaskName(e.target.value)} />
-            <button className="btn" type="submit">Add</button>
+            <button className="btn" type="submit" onClick={event => this.submitForm(event)}>Add</button>
           </form>
     
         </section>
