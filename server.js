@@ -11,7 +11,7 @@ const server = app.listen(8000, () => {
 
 const io = socket(server);
 
-const tasks = [];
+let tasks = [];
 
 io.on('connection', (socket) => {
     socket.emit('updateData', tasks);
@@ -19,9 +19,9 @@ io.on('connection', (socket) => {
         tasks.push(task);
         socket.broadcast.emit('addTask', task);
     });
-    socket.on('removeTask', (taskIndex) => {
-        tasks.splice(taskIndex, 1);
-        socket.broadcast.emit('removeTask', taskIndex);
+    socket.on('removeTask', taskId => {
+        tasks = tasks.filter(task => task.id !== taskId);
+        socket.broadcast.emit('removeTask', taskId);
     });
 });
 
