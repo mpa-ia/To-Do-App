@@ -10,18 +10,21 @@ class App extends React.Component {
   componentDidMount() {
     this.socket = io.connect('http://localhost:8000');
     this.socket.on('updateData', (tasksList) => {this.updateTasksList(tasksList)});
-    this.socket.on('addTask', (newTask) => {this.addTask(newTask)});
+    this.socket.on('addTask', newTask => {this.addTask(newTask)});
+    this.socket.on('removeTask', (taskIndex) => {this.removeTask(taskIndex)});
   };
 
   updateTasksList (tasksList) {
     this.setState({ tasks: tasksList});
   };
 
-  removeTask (taskIndex) {
+  removeTask (taskIndex, isLocalChange) {
     this.setState(state => {
       return state.tasks.splice(taskIndex, 1);
     });
-    this.socket.emit('removeTask', taskIndex);
+   if (isLocalChange) {
+      this.socket.emit('removeTask', taskIndex);
+    }
   };
   
   updateTaskName (newValue) {
@@ -56,7 +59,7 @@ class App extends React.Component {
           <ul className="tasks-section__list" id="tasks-list">
             {tasks.map(task => (
               <li className="task">{task} 
-                <button className="btn btn--red" onClick={() => this.removeTask(tasks.indexOf(task))}>Remove</button>
+                <button className="btn btn--red" onClick={() => this.removeTask(tasks.indexOf(task), true)}>Remove</button>
               </li>
             ))}
           </ul>
